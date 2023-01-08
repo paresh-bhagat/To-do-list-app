@@ -1,56 +1,74 @@
-import javax.swing.*;
-import java.awt.*;
-
+import java.util.*;
 public class Main {
+    static LoginFrame frame = new LoginFrame();
+    static Map<String, String> user_info = new HashMap<>();
+
+    public static void register( RegisterPage register_panel )
+    {
+        if ( user_info.containsKey(register_panel.textbox_newus.getText()) )
+            register_panel.text_takenu.setVisible(true);
+        else
+        {
+            String PasswordTyped = new String(register_panel.textbox_newpwd.getPassword());
+            user_info.put( register_panel.textbox_newus.getText(), PasswordTyped);
+            register_panel.text_registered.setVisible(true);
+        }
+
+        for (Map.Entry<String, String> me : user_info.entrySet()) {
+
+            // Printing keys
+            System.out.print(me.getKey() + ":");
+            System.out.println(me.getValue());
+        }
+    }
+    public static void register_page()
+    {
+        frame.panel1.setVisible(false);
+        frame.panel2.setVisible(false);
+        RegisterPage register_panel = new RegisterPage();
+
+        frame.add(register_panel);
+
+        register_panel.button_newregister.addActionListener( e -> { register_panel.text_takenu.setVisible(false); register_panel.text_registered.setVisible(false); register(register_panel);} );
+
+        register_panel.button_loginmenu.addActionListener( e -> { register_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
+    }
+
+    public static void task_page()
+    {
+        frame.text_wup.setVisible(false);
+
+        if ( user_info.containsKey(frame.textbox_us.getText()) )
+        {
+            String PasswordTyped = new String(frame.textbox_pwd.getPassword());
+            if ( user_info.get(frame.textbox_us.getText()).equals(PasswordTyped) )
+            {
+                frame.panel1.setVisible(false);
+                frame.panel2.setVisible(false);
+            }
+            else
+                frame.text_wup.setVisible(true);
+        }
+        else
+            frame.text_wup.setVisible(true);
+
+
+    }
+
     public static void main(String[] args) {
 
-        // text welcome
-        JLabel text_label1 = new JLabel();
-        text_label1.setText("Welcome to TaskBox");
-        text_label1.setForeground(Color.white);
-        text_label1.setFont(new Font("Futura",Font.PLAIN,35));
-        text_label1.setBounds(100,80, 400,100);
+        user_info.put("admin", "admin12@");
+        user_info.put("paresh", "bholu");
 
-        //text des
-        JLabel text_label2 = new JLabel();
-        text_label2.setText("Create,Organize your tasks with ease");
-        text_label2.setForeground(Color.white);
-        text_label2.setFont(new Font("Futura",Font.ITALIC,20));
-        text_label2.setBounds(100,160, 400,50);
+        for (Map.Entry<String, String> me : user_info.entrySet()) {
 
-        // image
-        ImageIcon img1 = new ImageIcon( new ImageIcon("multitask.png").getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH));
-        JLabel image_label1 = new JLabel();
-        image_label1.setIcon(img1);
-        image_label1.setBounds(80,210, 400,400);
+            // Printing keys
+            System.out.print(me.getKey() + ":");
+            System.out.println(me.getValue());
+        }
 
-        // panel1
-        JPanel panel1 = new JPanel();
-        panel1.setBackground(new Color(174, 138, 231));
-        panel1.setBounds(0,0,600,720);
-        panel1.setLayout(null);
-        panel1.add(text_label1);
-        panel1.add(text_label2);
-        panel1.add(image_label1);
+        frame.button_login.addActionListener( e -> task_page() );
+        frame.button_register.addActionListener( e -> register_page() );
 
-        
-        // panel2
-        JPanel panel2 = new JPanel();
-        panel2.setBackground(new Color(241, 208, 214));
-        panel2.setBounds(600,0,480,720);
-        panel2.setLayout(null);
-
-        // frame
-        JFrame frame = new JFrame();
-        frame.setTitle("TO-DO-List");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        ImageIcon icon_app = new ImageIcon("task.png");
-        frame.setIconImage(icon_app.getImage());
-        frame.setSize(1080,720);
-        frame.setLayout(null);
-        frame.add(panel1);
-        frame.add(panel2);
-        frame.setVisible(true);
     }
 }
