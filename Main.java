@@ -3,6 +3,8 @@ public class Main {
     static LoginFrame frame = new LoginFrame();
     static Map<String, String> user_info = new HashMap<>();
 
+    static Map<String,Map<String,String>> Task = new HashMap< String, Map<String, String>>() ;
+
     public static void register( RegisterPage register_panel )
     {
         if ( user_info.containsKey(register_panel.textbox_newus.getText()) )
@@ -38,13 +40,20 @@ public class Main {
     {
         frame.text_wup.setVisible(false);
 
-        if ( user_info.containsKey(frame.textbox_us.getText()) )
+        String usr_name =  frame.textbox_us.getText();
+
+        if ( user_info.containsKey(usr_name) )
         {
             String PasswordTyped = new String(frame.textbox_pwd.getPassword());
             if ( user_info.get(frame.textbox_us.getText()).equals(PasswordTyped) )
             {
                 frame.panel1.setVisible(false);
                 frame.panel2.setVisible(false);
+                TaskPage task_panel = new TaskPage(usr_name);
+                TaskView taskview_panel = new TaskView();
+                frame.add(task_panel);
+                frame.add(taskview_panel);
+                task_panel.button_loginmenu.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
             }
             else
                 frame.text_wup.setVisible(true);

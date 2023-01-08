@@ -1,69 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
-public class TaskPage {
+public class TaskPage extends JPanel{
     JButton button_loginmenu = new JButton();
-    JButton button_addtask
-            = new JButton();
-    TaskPage()
+    JButton button_addtask = new JButton();
+    JLabel text_wlcusr = new JLabel();
+    JLabel text_task = new JLabel();
+    JLabel text_notask = new JLabel();
+    TaskPage(String usr_name)
     {
 
-        // Create account
-        JLabel text_createaccount = new JLabel();
-        text_createaccount.setText("Create Account");
-        text_createaccount.setForeground(new Color(47, 43, 44));
-        text_createaccount.setFont(new Font("Futura",Font.PLAIN,30));
-        text_createaccount.setBounds(300,100, 300,80);
+        /* Welcome user */
 
-        // text new username
-        JLabel text_newun = new JLabel();
-        text_newun.setText("Username");
-        text_newun.setForeground(new Color(47, 43, 44));
-        text_newun.setFont(new Font("Futura",Font.PLAIN,15));
-        text_newun.setBounds(250,150, 100,40);
+        text_wlcusr.setText("Welcome " + usr_name);
+        text_wlcusr.setForeground(new Color(47, 43, 44));
+        text_wlcusr.setFont(new Font("Futura",Font.BOLD,30));
+        text_wlcusr.setBounds(300,50, 300,80);
 
-        // text-box new username
+        // text task
 
-        textbox_newus.setBounds(250,190,250, 25);
-        textbox_newus.setBorder(null);
-        textbox_newus.setForeground(new Color(47, 43, 44));
-        textbox_newus.setFont(new Font("Futura",Font.BOLD,13));
+        text_task.setText("Your task");
+        text_task.setForeground(new Color(47, 43, 44));
+        text_task.setFont(new Font("Futura",Font.PLAIN,15));
+        text_task.setBounds(350,120, 100,40);
 
-        // text new password
-        JLabel text_newpwd = new JLabel();
-        text_newpwd.setText("Password");
-        text_newpwd.setForeground(new Color(47, 43, 44));
-        text_newpwd.setFont(new Font("Futura",Font.PLAIN,15));
-        text_newpwd.setBounds(250,230, 100,40);
+        // text No task
 
-        // text-box password
-
-        textbox_newpwd.setBounds(250,270,250, 25);
-        textbox_newpwd.setBorder(null);
-
-        // register button
-        ImageIcon img_register = new ImageIcon( new ImageIcon("register.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        button_newregister.setBounds(350, 310, 40,40);
-        button_newregister.setBorder(null);
-        button_newregister.setFocusable(false);
-        button_newregister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button_newregister.setBackground(new Color(241, 208, 214));
-        button_newregister.setIcon(img_register);
-
-        //  username already taken
-
-        text_takenu.setText("Username already taken");
-        text_takenu.setForeground(new Color(232, 29, 64));
-        text_takenu.setFont(new Font("Futura",Font.PLAIN,15));
-        text_takenu.setBounds(250,360, 400,40);
-        text_takenu.setVisible(false);
-
-        // registered
-
-        text_registered.setText("Succesfully Registered");
-        text_registered.setForeground(new Color(106, 210, 38));
-        text_registered.setFont(new Font("Futura",Font.PLAIN,15));
-        text_registered.setBounds(250,360, 400,40);
-        text_registered.setVisible(false);
+        text_notask.setText("No task found");
+        text_notask.setForeground(new Color(47, 43, 44));
+        text_notask.setFont(new Font("Futura",Font.PLAIN,15));
+        text_notask.setBounds(350,120, 100,40);
 
         // main menu
         ImageIcon img_mainmenu = new ImageIcon( new ImageIcon("home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
@@ -74,18 +39,25 @@ public class TaskPage {
         button_loginmenu.setBackground(new Color(241, 208, 214));
         button_loginmenu.setIcon(img_mainmenu);
 
+        // add task
+        ImageIcon img_addtask = new ImageIcon( new ImageIcon("addtask1.png").getImage().getScaledInstance(35, 40, Image.SCALE_SMOOTH));
+        button_addtask.setBounds(500, 120, 45,50);
+        button_addtask.setBorder(null);
+        button_addtask.setText("New task");
+        button_addtask.setIconTextGap(4);
+        button_addtask.setFocusable(false);
+        button_addtask.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button_addtask.setBackground(new Color(241, 208, 214));
+        button_addtask.setIcon( img_addtask );
+
         this.setBackground(new Color(241, 208, 214));
-        this.setBounds(0,0,1080,720);
+        this.setBounds(0,0,1080,200);
         this.setLayout(null);
-        this.add(text_createaccount);
-        this.add(text_newun);
-        this.add(textbox_newus);
-        this.add(text_newpwd);
-        this.add(textbox_newpwd);
-        this.add(button_newregister);
+        this.add(button_addtask);
+        this.add(text_wlcusr);
+        this.add(text_task);
+        this.add(text_notask);
         this.add(button_loginmenu);
-        this.add(text_takenu);
-        this.add(text_registered);
 
     }
 }
