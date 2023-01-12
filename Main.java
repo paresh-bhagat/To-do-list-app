@@ -43,9 +43,13 @@ public class Main {
         if ( task.equals("0") )
         {
             panel_taskedit = new TaskEdit( "Enter task name","Enter task details" );
+
+            frame.add(panel_taskedit);
             panel_taskedit.text_tasksaved.setVisible(false);
             panel_taskedit.text_taskdeleted.setVisible(false);
-            panel_taskedit.button_save.addActionListener( e -> {
+            panel_taskedit.button_deletetask.setVisible(false);
+
+            panel_taskedit.button_save.addActionListener( e -> { panel_taskedit.text_tasksaved.setVisible(true);
                 if( Task_all.containsKey(usr_name)) {
                     Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(),panel_taskedit.textbox_taskdetails.getText() );
                 }
@@ -55,7 +59,6 @@ public class Main {
                     Task_all.put(usr_name,task_t);
                 }
 
-                panel_taskedit.text_tasksaved.setVisible(true);
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException ex) {
@@ -67,24 +70,36 @@ public class Main {
         else
         {
             panel_taskedit = new TaskEdit( task ,  (Task_all.get(usr_name)).get(task) );
+            frame.add(panel_taskedit);
             panel_taskedit.text_tasksaved.setVisible(false);
             panel_taskedit.text_taskdeleted.setVisible(false);
+            panel_taskedit.button_deletetask.setVisible(true);
+
             panel_taskedit.button_save.addActionListener( e -> { panel_taskedit.text_tasksaved.setVisible(true);
                 Task_all.get(usr_name).remove(task);
                 Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(),panel_taskedit.textbox_taskdetails.getText() );
+
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
                 panel_taskedit.setVisible(false); task_page(usr_name);} );
+
+            panel_taskedit.button_deletetask.addActionListener( e -> { panel_taskedit.text_taskdeleted.setVisible(true);
+                Task_all.get(usr_name).remove(task);
+                if (Task_all.get(usr_name).isEmpty()) { Task_all.remove(usr_name);}
+
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+                panel_taskedit.setVisible(false);
+                task_page(usr_name);} );
         }
 
         panel_taskedit.button_backmenu.addActionListener( e -> { panel_taskedit.setVisible(false); task_page(usr_name);} );
-        panel_taskedit.button_deletetask.addActionListener( e -> { (Task_all.get(usr_name)).remove(task);
-            if (Task_all.get(usr_name).isEmpty()) { Task_all.remove(usr_name);} panel_taskedit.text_taskdeleted.setVisible(true);
-            task_page(usr_name);} );
-        frame.add(panel_taskedit);
     }
 
     public static void task_page( String usr_name)
@@ -95,8 +110,7 @@ public class Main {
 
         if(Task_all.containsKey(usr_name))
         {
-            task_panel.text_notask.setVisible(false);
-            task_panel.text_task.setVisible(true);
+            task_panel.button_addtask.setText("Add new task");
             for ( Map.Entry<String, String> me : Task_all.get(usr_name).entrySet())
             {
                 TaskButton button_t = new TaskButton(me.getKey());
@@ -108,8 +122,7 @@ public class Main {
         }
         else
         {
-            task_panel.text_notask.setVisible(true);
-            task_panel.text_task.setVisible(false);
+            task_panel.button_addtask.setText("Create your first task");
         }
 
         frame.add(task_panel);
@@ -135,8 +148,7 @@ public class Main {
 
                 if(Task_all.containsKey(usr_name))
                 {
-                    task_panel.text_notask.setVisible(false);
-                    task_panel.text_task.setVisible(true);
+                    task_panel.button_addtask.setText("Add new task");
                     for ( Map.Entry<String, String> me : Task_all.get(usr_name).entrySet())
                     {
                         TaskButton button_t = new TaskButton(me.getKey());
@@ -148,8 +160,7 @@ public class Main {
                 }
                 else
                 {
-                    task_panel.text_notask.setVisible(true);
-                    task_panel.text_task.setVisible(false);
+                    task_panel.button_addtask.setText("Create your first task");
                 }
 
                 frame.add(task_panel);
