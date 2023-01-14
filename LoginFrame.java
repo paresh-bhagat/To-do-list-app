@@ -24,7 +24,7 @@ public class LoginFrame extends JFrame {
         text_label2.setBounds(100,160, 400,50);
 
         // image
-        ImageIcon img1 = new ImageIcon( new ImageIcon("multitask.png").getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH));
+        ImageIcon img1 = new ImageIcon( new ImageIcon("./images/multitask.png").getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH));
         JLabel image_label1 = new JLabel();
         image_label1.setIcon(img1);
         image_label1.setBounds(80,210, 400,400);
@@ -72,7 +72,7 @@ public class LoginFrame extends JFrame {
         textbox_pwd.setBorder(null);
 
         // login button
-        ImageIcon img_login = new ImageIcon( new ImageIcon("login.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        ImageIcon img_login = new ImageIcon( new ImageIcon("./images/login.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
         button_login.setBounds(180, 320, 70,70);
         button_login.setBorder(null);
         button_login.setFocusable(false);
@@ -89,7 +89,7 @@ public class LoginFrame extends JFrame {
         text_nus.setBounds(180,450, 100,40);
 
         // register button
-        ImageIcon img_register = new ImageIcon( new ImageIcon("register.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        ImageIcon img_register = new ImageIcon( new ImageIcon("./images/register.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         button_register.setBounds(195, 490, 40,40);
         button_register.setBorder(null);
         button_register.setFocusable(false);
@@ -125,7 +125,7 @@ public class LoginFrame extends JFrame {
         this.setTitle("TO-DO-List");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        ImageIcon icon_app = new ImageIcon("task.png");
+        ImageIcon icon_app = new ImageIcon("./images/task.png");
         this.setIconImage(icon_app.getImage());
         this.setSize(1080,720);
         this.setLayout(null);

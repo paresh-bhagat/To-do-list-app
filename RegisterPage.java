@@ -44,8 +44,8 @@ public class RegisterPage extends JPanel{
         textbox_newpwd.setBorder(null);
 
         // register button
-        ImageIcon img_register = new ImageIcon( new ImageIcon("register.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        button_newregister.setBounds(500, 360, 40,40);
+        ImageIcon img_register = new ImageIcon( new ImageIcon("./images/register.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        button_newregister.setBounds(540, 360, 40,40);
         button_newregister.setBorder(null);
         button_newregister.setFocusable(false);
         button_newregister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -69,8 +69,8 @@ public class RegisterPage extends JPanel{
         text_registered.setVisible(false);
 
         // main menu
-        ImageIcon img_mainmenu = new ImageIcon( new ImageIcon("home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        button_loginmenu.setBounds(80, 50, 40,40);
+        ImageIcon img_mainmenu = new ImageIcon( new ImageIcon("./images/backbutton.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        button_loginmenu.setBounds(460, 360, 40,40);
         button_loginmenu.setBorder(null);
         button_loginmenu.setFocusable(false);
         button_loginmenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

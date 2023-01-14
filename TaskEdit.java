@@ -46,19 +46,20 @@ public class TaskEdit extends JPanel{
         textbox_taskname.setBounds(450,120,150, 60);
         textbox_taskname.setBorder(null);
         textbox_taskname.setText(task);
-        //textbox_taskname.se
+        textbox_taskname.setHorizontalAlignment(JTextField.CENTER);
         textbox_taskname.setForeground(new Color(47, 43, 44));
-        textbox_taskname.setFont(new Font("Futura",Font.BOLD,14));
+        textbox_taskname.setFont(new Font("Futura",Font.PLAIN,14));
 
         // text box task details
         textbox_taskdetails.setBounds(380,350,300, 150);
         textbox_taskdetails.setBorder(null);
         textbox_taskdetails.setText(details);
+        textbox_taskdetails.setHorizontalAlignment(JTextField.CENTER);
         textbox_taskdetails.setForeground(new Color(47, 43, 44));
-        textbox_taskdetails.setFont(new Font("Futura",Font.BOLD,14));
+        textbox_taskdetails.setFont(new Font("Futura",Font.PLAIN,14));
 
         // back button
-        ImageIcon img_back = new ImageIcon( new ImageIcon("backbutton.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        ImageIcon img_back = new ImageIcon( new ImageIcon("./images/backbutton.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         button_backmenu.setBorder(null);
         button_backmenu.setFocusable(false);
         button_backmenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -66,7 +67,7 @@ public class TaskEdit extends JPanel{
         button_backmenu.setIcon(img_back);
 
         // save button
-        ImageIcon img_save = new ImageIcon( new ImageIcon("save.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        ImageIcon img_save = new ImageIcon( new ImageIcon("./images/save.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 
         button_save.setBorder(null);
         button_save.setFocusable(false);
@@ -75,7 +76,7 @@ public class TaskEdit extends JPanel{
         button_save.setIcon(img_save);
 
         // delete button
-        ImageIcon img_delete = new ImageIcon( new ImageIcon("remove.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        ImageIcon img_delete = new ImageIcon( new ImageIcon("./images/remove.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         button_deletetask.setBounds(560, 530, 40,40);
         button_deletetask.setBorder(null);
         button_deletetask.setFocusable(false);

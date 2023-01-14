@@ -1,12 +1,148 @@
 import java.util.*;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
     static LoginFrame frame = new LoginFrame();
     static Map<String, String> user_info = new HashMap<>();
+    static Map<String,Map<String,String[]>> Task_all = new HashMap<>() ;
+    final static String filePath1 = "./files/usrpasswrd.txt";
+    final static String filePath2 = "./files/usrtask.txt";
 
-    static Map<String,Map<String,String>> Task_all = new HashMap<>() ;
+    public static void writeusrpasswrd( Map<String,String> map ){
 
+        File file = new File(filePath1);
+        try (BufferedWriter bf = new BufferedWriter(new FileWriter(file))) {
+            // create new BufferedWriter for the output file
+            // iterate map entries
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                // put key and value separated by a colon
+                bf.write(entry.getKey() + ":" + entry.getValue());
+                // new line
+                bf.newLine();
+            }
+            bf.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // always close the writer
+    }
+    public static void writeusrtask( Map<String,Map<String,String[]>> map ){
+        File file = new File(filePath2);
+        try (BufferedWriter bf = new BufferedWriter(new FileWriter(file))) {
+            // create new BufferedWriter for the output file
+            // iterate map entries
+            for (Map.Entry<String, Map<String,String[]>> entry : map.entrySet()) {
+                // put key and value separated by a colon
+                Map<String, String[]> innerMap = entry.getValue();
+                bf.write(entry.getKey());
+                bf.newLine();
+                bf.write(Integer.toString(innerMap.size()));
+                bf.newLine();
+                for (Map.Entry<String, String[] > keyPair : innerMap.entrySet()) {
+                    String[] temp = keyPair.getValue();
+                    bf.write(keyPair.getKey() + ":" +temp[0] + ":" + temp[1] + ":" +temp[2]+ ":"
+                            + temp[3]+ ":" + temp[4]);
+                    // new line
+                    bf.newLine();
+                }
+
+            }
+            bf.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void readusrpasswrd( Map<String,String> map ){
+        BufferedReader br = null;
+
+        try {
+
+            File file = new File(filePath1);
+
+            br = new BufferedReader(new FileReader(file));
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                // split the line by :
+                String[] parts = line.split(":");
+
+                // first part is name, second is number
+                String name = parts[0].trim();
+                String passwrd = parts[1].trim();
+
+                map.put(name, passwrd);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+
+            // Always close the BufferedReader
+            if (br != null) {
+                try {
+                    br.close();
+                }
+                catch (Exception ignored) {
+                }
+            }
+        }
+    }
+    public static void readtask( Map<String,Map<String,String[]>> map){
+
+        BufferedReader br = null;
+
+        try {
+
+            File file = new File(filePath2);
+
+            br = new BufferedReader(new FileReader(file));
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                // split the line by :
+                String usr_name = line;
+                int n =  Integer.parseInt(br.readLine());
+                map.put(usr_name,new HashMap<>());
+
+                while(n!=0)
+                {
+                    line=br.readLine();
+                    String[] parts = line.split(":");
+                    String[] temp2 = new String[5];
+                    // first part is name, second is number
+                    String task = parts[0].trim();
+                    temp2[0] = parts[1].trim();
+                    temp2[1] = parts[2].trim();
+                    temp2[2] = parts[3].trim();
+                    temp2[3] = parts[4].trim();
+                    temp2[4] = parts[5].trim();
+                    map.get(usr_name).put(task, temp2);
+                    n--;
+                }
+
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+
+            // Always close the BufferedReader
+            if (br != null) {
+                try {
+                    br.close();
+                }
+                catch (Exception ignored) {
+                }
+            }
+        }
+    }
     public static void register( RegisterPage register_panel )
     {
         if ( user_info.containsKey(register_panel.textbox_newus.getText()) )
@@ -15,15 +151,10 @@ public class Main {
         {
             String PasswordTyped = new String(register_panel.textbox_newpwd.getPassword());
             user_info.put( register_panel.textbox_newus.getText(), PasswordTyped);
+            writeusrpasswrd(user_info);
             register_panel.text_registered.setVisible(true);
         }
 
-        for (Map.Entry<String, String> me : user_info.entrySet()) {
-
-            // Printing keys
-            System.out.print(me.getKey() + ":");
-            System.out.println(me.getValue());
-        }
     }
     public static void register_page()
     {
@@ -51,12 +182,26 @@ public class Main {
 
             panel_taskedit.button_save.addActionListener( e -> { panel_taskedit.text_tasksaved.setVisible(true);
                 if( Task_all.containsKey(usr_name)) {
-                    Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(),panel_taskedit.textbox_taskdetails.getText() );
+                    String[] temp = new String[5];
+                    temp[0]=panel_taskedit.textbox_taskdetails.getText();
+                    temp[1]="0";
+                    temp[2]="0";
+                    temp[3]="0";
+                    temp[4]="0";
+                    Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(), temp);
+                    writeusrtask(Task_all);
                 }
                 else {
-                    Map<String,String> task_t = new HashMap<>();
-                    task_t.put(panel_taskedit.textbox_taskname.getText(),panel_taskedit.textbox_taskdetails.getText());
+                    Map<String,String[]> task_t = new HashMap<>();
+                    String[] temp = new String[5];
+                    temp[0]=panel_taskedit.textbox_taskdetails.getText();
+                    temp[1]="0";
+                    temp[2]="0";
+                    temp[3]="0";
+                    temp[4]="0";
+                    task_t.put(panel_taskedit.textbox_taskname.getText(),temp);
                     Task_all.put(usr_name,task_t);
+                    writeusrtask(Task_all);
                 }
 
                 try {
@@ -69,7 +214,7 @@ public class Main {
 
         else
         {
-            panel_taskedit = new TaskEdit( task ,  (Task_all.get(usr_name)).get(task) );
+            panel_taskedit = new TaskEdit( task ,  (Task_all.get(usr_name)).get(task)[0] );
             frame.add(panel_taskedit);
             panel_taskedit.text_tasksaved.setVisible(false);
             panel_taskedit.text_taskdeleted.setVisible(false);
@@ -77,14 +222,21 @@ public class Main {
 
             panel_taskedit.button_save.addActionListener( e -> { panel_taskedit.text_tasksaved.setVisible(true);
                 Task_all.get(usr_name).remove(task);
-                Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(),panel_taskedit.textbox_taskdetails.getText() );
-
+                String[] temp = new String[5];
+                temp[0]=panel_taskedit.textbox_taskdetails.getText();
+                temp[1]="0";
+                temp[2]="0";
+                temp[3]="0";
+                temp[4]="0";
+                Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(), temp);
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
-                panel_taskedit.setVisible(false); task_page(usr_name);} );
+                panel_taskedit.setVisible(false);
+                writeusrtask(Task_all);
+                task_page(usr_name);} );
 
             panel_taskedit.button_deletetask.addActionListener( e -> { panel_taskedit.text_taskdeleted.setVisible(true);
                 Task_all.get(usr_name).remove(task);
@@ -96,6 +248,7 @@ public class Main {
                     throw new RuntimeException(ex);
                 }
                 panel_taskedit.setVisible(false);
+                writeusrtask(Task_all);
                 task_page(usr_name);} );
         }
 
@@ -106,12 +259,11 @@ public class Main {
     {
         TaskPage task_panel = new TaskPage(usr_name);
         TaskView taskview_panel = new TaskView();
-        task_panel.button_addtask.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); add_edit_task(usr_name,"0");} );
 
         if(Task_all.containsKey(usr_name))
         {
             task_panel.button_addtask.setText("Add new task");
-            for ( Map.Entry<String, String> me : Task_all.get(usr_name).entrySet())
+            for ( Map.Entry<String, String[]> me : Task_all.get(usr_name).entrySet())
             {
                 TaskButton button_t = new TaskButton(me.getKey());
                 button_t.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); add_edit_task(usr_name,me.getKey());} );
@@ -127,6 +279,17 @@ public class Main {
 
         frame.add(task_panel);
         frame.add(taskview_panel);
+        task_panel.button_addtask.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); add_edit_task(usr_name,"0");} );
+
+        task_panel.button_delact.addActionListener(e -> { task_panel.setVisible(false); taskview_panel.setVisible(false);
+            user_info.remove(usr_name);
+            Task_all.remove(usr_name);
+            writeusrpasswrd(user_info);
+            writeusrtask(Task_all);
+            frame.panel1.setVisible(true); frame.panel2.setVisible(true);});
+
+        task_panel.button_changepswd.addActionListener( e -> { taskview_panel.setVisible(false); change_password(usr_name);} );
+
         task_panel.button_loginmenu.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
     }
     public static void task_page()
@@ -149,7 +312,7 @@ public class Main {
                 if(Task_all.containsKey(usr_name))
                 {
                     task_panel.button_addtask.setText("Add new task");
-                    for ( Map.Entry<String, String> me : Task_all.get(usr_name).entrySet())
+                    for ( Map.Entry<String, String[]> me : Task_all.get(usr_name).entrySet())
                     {
                         TaskButton button_t = new TaskButton(me.getKey());
                         button_t.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); add_edit_task(usr_name,me.getKey());} );
@@ -165,6 +328,16 @@ public class Main {
 
                 frame.add(task_panel);
                 frame.add(taskview_panel);
+
+                task_panel.button_delact.addActionListener(e -> { task_panel.setVisible(false); taskview_panel.setVisible(false);
+                    user_info.remove(usr_name);
+                    Task_all.remove(usr_name);
+                    writeusrpasswrd(user_info);
+                    writeusrtask(Task_all);
+                    frame.panel1.setVisible(true); frame.panel2.setVisible(true);});
+
+                task_panel.button_changepswd.addActionListener( e -> { taskview_panel.setVisible(false); change_password(usr_name);} );
+
                 task_panel.button_loginmenu.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
             }
             else
@@ -174,25 +347,22 @@ public class Main {
             frame.text_wup.setVisible(true);
 
     }
-
+    public static void change_password(String usr_name){
+        ChangePassword change_panel = new ChangePassword();
+        change_panel.text_changed.setVisible(false);
+        change_panel.button_changepassword.addActionListener(
+                e -> { String PasswordTyped = new String(change_panel.textbox_newpwd.getPassword());
+                    user_info.replace(usr_name,PasswordTyped);
+                    writeusrpasswrd(user_info);
+                    change_panel.setVisible(false);
+                    task_page(usr_name);}
+        );
+        frame.add(change_panel);
+    }
     public static void main(String[] args) {
 
-        user_info.put("admin", "admin12@");
-        user_info.put("paresh", "bholu");
-
-        for (Map.Entry<String, String> me : user_info.entrySet()) {
-
-            // Printing keys
-            System.out.print(me.getKey() + ":");
-            System.out.println(me.getValue());
-        }
-
-        Map<String,String> paresh_task = new HashMap<>();
-        paresh_task.put("study","Study java");
-        paresh_task.put("bholu","dug dug");
-        paresh_task.put("eat","poha");
-        Task_all.put("paresh",paresh_task);
-
+        readusrpasswrd(user_info);
+        readtask(Task_all);
         frame.button_login.addActionListener( e -> task_page() );
         frame.button_register.addActionListener( e -> register_page() );
 
