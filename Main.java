@@ -288,7 +288,7 @@ public class Main {
             writeusrtask(Task_all);
             frame.panel1.setVisible(true); frame.panel2.setVisible(true);});
 
-        task_panel.button_changepswd.addActionListener( e -> { taskview_panel.setVisible(false); change_password(usr_name);} );
+        task_panel.button_changepswd.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); change_password(usr_name);} );
 
         task_panel.button_loginmenu.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
     }
@@ -336,7 +336,7 @@ public class Main {
                     writeusrtask(Task_all);
                     frame.panel1.setVisible(true); frame.panel2.setVisible(true);});
 
-                task_panel.button_changepswd.addActionListener( e -> { taskview_panel.setVisible(false); change_password(usr_name);} );
+                task_panel.button_changepswd.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); change_password(usr_name);} );
 
                 task_panel.button_loginmenu.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
             }
@@ -345,19 +345,20 @@ public class Main {
         }
         else
             frame.text_wup.setVisible(true);
-
+        frame.textbox_us.setText("");
+        frame.textbox_pwd.setText("");
     }
     public static void change_password(String usr_name){
         ChangePassword change_panel = new ChangePassword();
         change_panel.text_changed.setVisible(false);
+        frame.add(change_panel);
         change_panel.button_changepassword.addActionListener(
                 e -> { String PasswordTyped = new String(change_panel.textbox_newpwd.getPassword());
                     user_info.replace(usr_name,PasswordTyped);
                     writeusrpasswrd(user_info);
-                    change_panel.setVisible(false);
-                    task_page(usr_name);}
+                    change_panel.text_changed.setVisible(true);}
         );
-        frame.add(change_panel);
+        change_panel.button_back.addActionListener( e -> { change_panel.setVisible(false); task_page(usr_name);} );
     }
     public static void main(String[] args) {
 
