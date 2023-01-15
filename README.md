@@ -1,4 +1,4 @@
-# TaskBox a To-Do List App using Java
+# TaskBox a To-Do list app using Java
 
 A To-Do List app using java. User can create account, login, add tasks, change or delete tasks, change password and delete account. Data is stored in text files and read when the program starts. 
 
