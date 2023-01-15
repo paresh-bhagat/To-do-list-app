@@ -173,8 +173,7 @@ public class Main {
         TaskEdit panel_taskedit;
         if ( task.equals("0") )
         {
-            panel_taskedit = new TaskEdit( "Enter task name","Enter task details" );
-
+            panel_taskedit = new TaskEdit( "Enter task name","Enter task details" ,"00-00-0000","00-00","00-00-0000","00-00");
             frame.add(panel_taskedit);
             panel_taskedit.text_tasksaved.setVisible(false);
             panel_taskedit.text_taskdeleted.setVisible(false);
@@ -184,10 +183,10 @@ public class Main {
                 if( Task_all.containsKey(usr_name)) {
                     String[] temp = new String[5];
                     temp[0]=panel_taskedit.textbox_taskdetails.getText();
-                    temp[1]="0";
-                    temp[2]="0";
-                    temp[3]="0";
-                    temp[4]="0";
+                    temp[1]=panel_taskedit.textbox_startdate.getText();
+                    temp[2]=panel_taskedit.textbox_starttime.getText();
+                    temp[3]=panel_taskedit.textbox_enddate.getText();
+                    temp[4]=panel_taskedit.textbox_endtime.getText();
                     Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(), temp);
                     writeusrtask(Task_all);
                 }
@@ -195,10 +194,10 @@ public class Main {
                     Map<String,String[]> task_t = new HashMap<>();
                     String[] temp = new String[5];
                     temp[0]=panel_taskedit.textbox_taskdetails.getText();
-                    temp[1]="0";
-                    temp[2]="0";
-                    temp[3]="0";
-                    temp[4]="0";
+                    temp[1]=panel_taskedit.textbox_startdate.getText();
+                    temp[2]=panel_taskedit.textbox_starttime.getText();
+                    temp[3]=panel_taskedit.textbox_enddate.getText();
+                    temp[4]=panel_taskedit.textbox_endtime.getText();
                     task_t.put(panel_taskedit.textbox_taskname.getText(),temp);
                     Task_all.put(usr_name,task_t);
                     writeusrtask(Task_all);
@@ -214,7 +213,7 @@ public class Main {
 
         else
         {
-            panel_taskedit = new TaskEdit( task ,  (Task_all.get(usr_name)).get(task)[0] );
+            panel_taskedit = new TaskEdit( task,(Task_all.get(usr_name)).get(task)[0] ,(Task_all.get(usr_name)).get(task)[1],(Task_all.get(usr_name)).get(task)[2],(Task_all.get(usr_name)).get(task)[3],(Task_all.get(usr_name)).get(task)[4]);
             frame.add(panel_taskedit);
             panel_taskedit.text_tasksaved.setVisible(false);
             panel_taskedit.text_taskdeleted.setVisible(false);
@@ -224,10 +223,10 @@ public class Main {
                 Task_all.get(usr_name).remove(task);
                 String[] temp = new String[5];
                 temp[0]=panel_taskedit.textbox_taskdetails.getText();
-                temp[1]="0";
-                temp[2]="0";
-                temp[3]="0";
-                temp[4]="0";
+                temp[1]=panel_taskedit.textbox_startdate.getText();
+                temp[2]=panel_taskedit.textbox_starttime.getText();
+                temp[3]=panel_taskedit.textbox_enddate.getText();
+                temp[4]=panel_taskedit.textbox_endtime.getText();
                 Task_all.get(usr_name).put( panel_taskedit.textbox_taskname.getText(), temp);
                 try {
                     TimeUnit.SECONDS.sleep(1);

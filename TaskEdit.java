@@ -5,12 +5,16 @@ public class TaskEdit extends JPanel{
     JTextField textbox_taskdetails = new JTextField();
     JButton button_backmenu = new JButton();
     JButton button_save = new JButton();
+    JTextField textbox_startdate = new JTextField();
+    JTextField textbox_enddate = new JTextField();
 
+    JTextField textbox_starttime = new JTextField();
+    JTextField textbox_endtime = new JTextField();
     JButton button_deletetask = new JButton();
 
     JLabel text_tasksaved = new JLabel();
     JLabel text_taskdeleted = new JLabel();
-    TaskEdit(String task, String details)
+    TaskEdit(String task, String details, String startdate, String starttime, String enddate, String endtime)
     {
 
         // text task
@@ -29,17 +33,67 @@ public class TaskEdit extends JPanel{
 
         // Start time
         JLabel text_starttime = new JLabel();
-        text_starttime.setText("Start Time");
+        text_starttime.setText("Starting Time");
         text_starttime.setForeground(new Color(47, 43, 44));
         text_starttime.setFont(new Font("Futura",Font.ITALIC,16));
-        text_starttime.setBounds(400,230, 100,40);
+        text_starttime.setBounds(400,210, 100,40);
+
+        // text box start time
+
+        textbox_starttime.setBounds(410,245,50, 20);
+        textbox_starttime.setBorder(null);
+        textbox_starttime.setText(starttime);
+        textbox_starttime.setHorizontalAlignment(JTextField.CENTER);
+        textbox_starttime.setForeground(new Color(47, 43, 44));
+        textbox_starttime.setFont(new Font("Futura",Font.PLAIN,14));
 
         // End time
         JLabel text_endtime = new JLabel();
-        text_endtime.setText("End time");
+        text_endtime.setText("Ending time");
         text_endtime.setForeground(new Color(47, 43, 44));
         text_endtime.setFont(new Font("Futura",Font.ITALIC,16));
-        text_endtime.setBounds(600,230, 100,40);
+        text_endtime.setBounds(695,210, 100,40);
+
+        // text box end time
+
+        textbox_endtime.setBounds(710,245,50, 20);
+        textbox_endtime.setBorder(null);
+        textbox_endtime.setText(endtime);
+        textbox_endtime.setHorizontalAlignment(JTextField.CENTER);
+        textbox_endtime.setForeground(new Color(47, 43, 44));
+        textbox_endtime.setFont(new Font("Futura",Font.PLAIN,14));
+
+        // Start date
+        JLabel text_startdate = new JLabel();
+        text_startdate.setText("Starting Date");
+        text_startdate.setForeground(new Color(47, 43, 44));
+        text_startdate.setFont(new Font("Futura",Font.ITALIC,16));
+        text_startdate.setBounds(300,210, 100,40);
+
+        // text box start date
+
+        textbox_startdate.setBounds(310,245,80, 20);
+        textbox_startdate.setBorder(null);
+        textbox_startdate.setText(startdate);
+        textbox_startdate.setHorizontalAlignment(JTextField.LEFT);
+        textbox_startdate.setForeground(new Color(47, 43, 44));
+        textbox_startdate.setFont(new Font("Futura",Font.PLAIN,14));
+
+        // End date
+        JLabel text_enddate = new JLabel();
+        text_enddate.setText("Ending date");
+        text_enddate.setForeground(new Color(47, 43, 44));
+        text_enddate.setFont(new Font("Futura",Font.ITALIC,16));
+        text_enddate.setBounds(600,210, 100,40);
+
+        // text box end date
+
+        textbox_enddate.setBounds(610,245,80, 20);
+        textbox_enddate.setBorder(null);
+        textbox_enddate.setText(enddate);
+        textbox_enddate.setHorizontalAlignment(JTextField.CENTER);
+        textbox_enddate.setForeground(new Color(47, 43, 44));
+        textbox_enddate.setFont(new Font("Futura",Font.PLAIN,14));
 
         // text box task name
 
@@ -118,5 +172,11 @@ public class TaskEdit extends JPanel{
         this.add(button_deletetask);
         this.add(text_tasksaved);
         this.add(text_taskdeleted);
+        this.add(text_startdate);
+        this.add(text_enddate);
+        this.add(textbox_startdate);
+        this.add(textbox_enddate);
+        this.add(textbox_starttime);
+        this.add(textbox_endtime);
     }
 }
