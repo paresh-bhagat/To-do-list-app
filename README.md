@@ -3,10 +3,10 @@
 A To-Do List app using java. User can create account, login, add tasks, change or delete tasks, change password and delete account. Data is stored in text files and read when the program starts. 
 
 ## Required Packages
-Swing (GUI widget toolkit for Java)
+* Swing (GUI widget toolkit for Java)
 
-##IDE Used
-IntelliJ IDEA
+## IDE Used
+* IntelliJ IDEA
 
 ## How to run
 ```
