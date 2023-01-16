@@ -338,6 +338,8 @@ public class Main {
                 task_panel.button_changepswd.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); change_password(usr_name);} );
 
                 task_panel.button_loginmenu.addActionListener( e -> { task_panel.setVisible(false); taskview_panel.setVisible(false); frame.panel1.setVisible(true); frame.panel2.setVisible(true);} );
+
+
             }
             else
                 frame.text_wup.setVisible(true);
@@ -346,6 +348,7 @@ public class Main {
             frame.text_wup.setVisible(true);
         frame.textbox_us.setText("");
         frame.textbox_pwd.setText("");
+
     }
     public static void change_password(String usr_name){
         ChangePassword change_panel = new ChangePassword();
@@ -363,8 +366,10 @@ public class Main {
 
         readusrpasswrd(user_info);
         readtask(Task_all);
+
         frame.button_login.addActionListener( e -> task_page() );
         frame.button_register.addActionListener( e -> register_page() );
-
+        TimerThread thread_timer = new TimerThread();
+        thread_timer.run(Task_all.get("bholu"));
     }
 }
