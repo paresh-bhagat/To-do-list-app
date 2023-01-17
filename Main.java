@@ -369,7 +369,5 @@ public class Main {
 
         frame.button_login.addActionListener( e -> task_page() );
         frame.button_register.addActionListener( e -> register_page() );
-        TimerThread thread_timer = new TimerThread();
-        thread_timer.run(Task_all.get("bholu"));
     }
 }
