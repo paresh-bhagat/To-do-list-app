@@ -12,11 +12,13 @@ A To-Do List app using java. User can create account, login, add tasks, change o
 
 ## How to run
 
+* In IDE
+
 ```
 Run Main.java in your IDE.
 ```
 
-In Linux
+* In Linux
 
 Compile
 
