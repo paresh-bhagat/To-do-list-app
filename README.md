@@ -29,7 +29,7 @@ javac Main.java
 Run
 
 ```
-java Main.java
+java Main
 ```
 
 ## Images
